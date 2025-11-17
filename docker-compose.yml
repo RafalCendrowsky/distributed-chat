@@ -1,6 +1,6 @@
 services:
   zookeeper:
-    image: confluentinc/cp-zookeeper:8.1.0
+    image: confluentinc/cp-zookeeper:7.9.4
     environment:
       ZOOKEEPER_CLIENT_PORT: 2181
       ZOOKEEPER_TICK_TIME: 2000
@@ -13,7 +13,7 @@ services:
       - chat-net
 
   kafka:
-    image: confluentinc/cp-kafka:8.1.0
+    image: confluentinc/cp-kafka:7.9.4
     depends_on:
       - zookeeper
     environment:
@@ -63,27 +63,27 @@ services:
       timeout: 5s
       retries: 5
 
-  chat-service:
-    build:
-      context: ./chat-service
-      dockerfile: Dockerfile
-    container_name: chat-service-1
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/chatdb
-      SPRING_DATASOURCE_USERNAME: postgres
-      SPRING_DATASOURCE_PASSWORD: postgres
-      SPRING_REDIS_HOST: redis
-      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
-      SERVER_PORT: 8080
-    depends_on:
-      - kafka
-      - postgres
-      - redis
-    ports:
-      - "8081:8080"
-    networks:
-      - chat-net
-    restart: unless-stopped
+#  chat-service:
+#    build:
+#      context: ./chat-service
+#      dockerfile: Dockerfile
+#    container_name: chat-service-1
+#    environment:
+#      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/chatdb
+#      SPRING_DATASOURCE_USERNAME: postgres
+#      SPRING_DATASOURCE_PASSWORD: postgres
+#      SPRING_REDIS_HOST: redis
+#      SPRING_KAFKA_BOOTSTRAP_SERVERS: kafka:9092
+#      SERVER_PORT: 8080
+#    depends_on:
+#      - kafka
+#      - postgres
+#      - redis
+#    ports:
+#      - "8081:8080"
+#    networks:
+#      - chat-net
+#    restart: unless-stopped
 
 volumes:
   zookeeper-data:
