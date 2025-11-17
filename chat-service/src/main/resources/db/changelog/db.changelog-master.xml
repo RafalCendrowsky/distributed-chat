@@ -4,9 +4,17 @@
         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd">
 
-    <changeSet author="admin" id="000.init.sql">
+    <changeSet author="admin" id="000_init.sql">
         <sqlFile dbms="postgresql"
-                 path="delta/000.init.sql"
+                 path="delta/000_init.sql"
+                 relativeToChangelogFile="true"
+                 splitStatements="true"
+                 stripComments="true"/>
+    </changeSet>
+
+    <changeSet author="admin" id="001_person.sql">
+        <sqlFile dbms="postgresql"
+                 path="delta/001_person.sql"
                  relativeToChangelogFile="true"
                  splitStatements="true"
                  stripComments="true"/>
